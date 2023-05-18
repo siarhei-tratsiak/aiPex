@@ -1,5 +1,5 @@
-import Canvas from '@/entities/canvas/canvas'
-import Field from '@/entities/field/field'
+import Canvas from '@/entities/canvas'
+import Field from '@/entities/field'
 
 export default class FieldService {
   readonly canvas: Canvas
@@ -27,6 +27,9 @@ export default class FieldService {
     const fieldWidth = this.field.width * cellSize
     const leftStart = (element.width - fieldWidth) / 2
 
+    this.field.cellSize = cellSize
+    this.field.left = leftStart
+    this.field.top = topStart
     ctx.lineWidth = cellSize / 100
 
     for (let i = 0; i <= this.field.width; i++) {

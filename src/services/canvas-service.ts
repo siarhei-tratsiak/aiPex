@@ -1,18 +1,10 @@
-import Canvas from '@/entities/canvas/canvas'
+import Canvas from '@/entities/canvas'
 
 export default class CanvasService {
   readonly canvas: Canvas
 
   constructor(canvas: Canvas) {
     this.canvas = canvas
-  }
-
-  drawLine() {
-    const ctx = this.canvas.ctx
-
-    ctx?.moveTo(0, 0)
-    ctx?.lineTo(200, 100)
-    ctx?.stroke()
   }
 
   unwrapCanvas() {
