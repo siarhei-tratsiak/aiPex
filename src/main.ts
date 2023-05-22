@@ -7,17 +7,17 @@ import CreatureService from '@/services/creature-service'
 import FieldService from '@/services/field-service'
 
 const canvas = new Canvas('main-canvas')
-const canvasService = new CanvasService(canvas)
+const canvasService = new CanvasService()
 
-canvasService.unwrapCanvas()
+canvasService.unwrap(canvas)
 
-const field = new Field(10, 20)
-const fieldService = new FieldService(canvas, field)
+const field = new Field(canvas, 10, 20)
+const fieldService = new FieldService()
 
-fieldService.draw()
+fieldService.draw(field)
 
-const creature = new Creature()
+const creature = new Creature('creature.png')
 const creatureService = new CreatureService()
 
 creatureService.place(creature, { x: 2, y: 4 })
-creatureService.draw(canvas, creature, field)
+fieldService.drawCreature(creature, field)
