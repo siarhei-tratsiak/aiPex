@@ -2,35 +2,41 @@ import Creature from '@/entities/creature'
 import Field from '@/entities/field'
 
 export default class FieldService {
-  draw(field: Field) {
-    const { ctx } = field.canvas
+  private field: Field
+
+  constructor(field: Field) {
+    this.field = field
+  }
+
+  drawField() {
+    const { ctx } = this.field.canvas
 
     if (!ctx) {
       return
     }
 
-    const element = field.canvas.element
+    const element = this.field.canvas.element
     const canvasAspectRatio = element.width / element.height
-    const fieldAspectRation = field.width / field.height
+    const fieldAspectRation = this.field.width / this.field.height
     const base = canvasAspectRatio > fieldAspectRation ? 'height' : 'width'
-    const cellSize = element[base] / field[base]
-    const fieldHeight = field.height * cellSize
+    const cellSize = element[base] / this.field[base]
+    const fieldHeight = this.field.height * cellSize
     const topStart = (element.height - fieldHeight) / 2
-    const fieldWidth = field.width * cellSize
+    const fieldWidth = this.field.width * cellSize
     const leftStart = (element.width - fieldWidth) / 2
 
-    field.cellSize = cellSize
-    field.left = leftStart
-    field.top = topStart
+    this.field.cellSize = cellSize
+    this.field.left = leftStart
+    this.field.top = topStart
     ctx.lineWidth = cellSize / 100
 
-    for (let i = 0; i <= field.width; i++) {
+    for (let i = 0; i <= this.field.width; i++) {
       const left = i * cellSize
       ctx.moveTo(left + leftStart, topStart)
       ctx.lineTo(left + leftStart, topStart + fieldHeight)
     }
 
-    for (let i = 0; i <= field.height; i++) {
+    for (let i = 0; i <= this.field.height; i++) {
       const top = i * cellSize
 
       ctx.moveTo(leftStart, top + topStart)
@@ -40,19 +46,23 @@ export default class FieldService {
     ctx.stroke()
   }
 
-  drawCreature(creature: Creature, field: Field) {
-    if (creature.posX === null || creature.posY === null || !field.canvas.ctx) {
+  drawCreature(creature: Creature) {
+    if (
+      creature.posX === null ||
+      creature.posY === null ||
+      !this.field.canvas.ctx
+    ) {
       return
     }
 
     const img = new Image()
     img.src = creature.img
-    img.onload = () => this.onImageLoad(creature, field, img)
+    img.onload = () => this.onImageLoad(creature, img)
   }
 
-  private onImageLoad(creature: Creature, field: Field, img: HTMLImageElement) {
-    const { ctx } = field.canvas
-    const { cellSize } = field
+  private onImageLoad(creature: Creature, img: HTMLImageElement) {
+    const { ctx } = this.field.canvas
+    const { cellSize } = this.field
 
     if (creature.posX === null || creature.posY === null) {
       return
@@ -60,8 +70,8 @@ export default class FieldService {
 
     ctx?.drawImage(
       img,
-      creature.posX * cellSize + field.left,
-      creature.posY * cellSize + field.top,
+      creature.posX * cellSize + this.field.left,
+      creature.posY * cellSize + this.field.top,
       cellSize,
       cellSize
     )
