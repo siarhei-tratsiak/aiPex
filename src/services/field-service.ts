@@ -1,5 +1,6 @@
 import Creature from '@/entities/creature'
 import Field from '@/entities/field'
+import { Population } from '@/entities/population'
 import CreatureService from '@/services/creature-service'
 
 export default class FieldService {
@@ -61,7 +62,7 @@ export default class FieldService {
     img.onload = () => this.onImageLoad(creature, img)
   }
 
-  sow(count: number) {
+  sow(count: number, population: Population) {
     const creatureService = new CreatureService()
     const cellsCount = this.field.height * this.field.width
     const sowingCells: number[] = []
@@ -77,6 +78,7 @@ export default class FieldService {
 
         sowingCells.push(sowingCell)
         creatureService.place(creature, { x, y })
+        population.creatures.push(creature)
         this.drawCreature(creature)
         count--
       }
