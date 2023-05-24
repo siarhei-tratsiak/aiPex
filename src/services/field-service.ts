@@ -70,7 +70,8 @@ export default class FieldService {
       const sowingCell = Math.floor(Math.random() * cellsCount)
 
       if (!sowingCells.includes(sowingCell)) {
-        const creature = new Creature('creature.png')
+        const weight = Math.random() * 2 + 0.5 // between 0.5 and 2
+        const creature = new Creature('creature.png', weight)
         const y = Math.floor(sowingCell / this.field.width)
         const x = sowingCell % this.field.width
 
@@ -85,6 +86,8 @@ export default class FieldService {
   private onImageLoad(creature: Creature, img: HTMLImageElement) {
     const { ctx } = this.field.canvas
     const { cellSize } = this.field
+    const imageSize = (-1 / (1 + creature.weight) + 1) * cellSize
+    const transition = (cellSize - imageSize) / 2
 
     if (creature.posX === null || creature.posY === null) {
       return
@@ -92,10 +95,10 @@ export default class FieldService {
 
     ctx?.drawImage(
       img,
-      creature.posX * cellSize + this.field.left,
-      creature.posY * cellSize + this.field.top,
-      cellSize,
-      cellSize
+      creature.posX * cellSize + this.field.left + transition,
+      creature.posY * cellSize + this.field.top + transition,
+      imageSize,
+      imageSize
     )
   }
 }
