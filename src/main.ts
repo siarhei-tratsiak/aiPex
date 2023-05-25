@@ -12,7 +12,7 @@ canvasService.unwrap(canvas)
 
 const field = new Field(canvas, 10, 20)
 const fieldService = new FieldService(field)
-const population = new Population()
+const population = new Population(10, field)
 
 fieldService.drawField()
-fieldService.sow(10, population)
+population.creatures.forEach((creature) => fieldService.drawCreature(creature))

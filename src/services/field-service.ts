@@ -1,7 +1,5 @@
 import Creature from '@/entities/creature'
 import Field from '@/entities/field'
-import { Population } from '@/entities/population'
-import CreatureService from '@/services/creature-service'
 
 export default class FieldService {
   private field: Field
@@ -60,29 +58,6 @@ export default class FieldService {
     const img = new Image()
     img.src = creature.img
     img.onload = () => this.onImageLoad(creature, img)
-  }
-
-  sow(count: number, population: Population) {
-    const creatureService = new CreatureService()
-    const cellsCount = this.field.height * this.field.width
-    const sowingCells: number[] = []
-
-    while (count > 0) {
-      const sowingCell = Math.floor(Math.random() * cellsCount)
-
-      if (!sowingCells.includes(sowingCell)) {
-        const weight = Math.random() * 2 + 0.5 // between 0.5 and 2
-        const creature = new Creature('creature.png', weight)
-        const y = Math.floor(sowingCell / this.field.width)
-        const x = sowingCell % this.field.width
-
-        sowingCells.push(sowingCell)
-        creatureService.place(creature, { x, y })
-        population.creatures.push(creature)
-        this.drawCreature(creature)
-        count--
-      }
-    }
   }
 
   private onImageLoad(creature: Creature, img: HTMLImageElement) {
