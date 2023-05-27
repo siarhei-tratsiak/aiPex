@@ -3,7 +3,7 @@ import IField from '@/entities/field/field.types'
 import IPopulation from '@/entities/population/population.types'
 
 export default class FieldService {
-  private field: IField
+  field: IField
 
   constructor(field: IField) {
     this.field = field
@@ -31,6 +31,9 @@ export default class FieldService {
     this.field.top = topStart
     ctx.lineWidth = cellSize / 100
 
+    const randomColor = Math.random() > 0.5 ? '#ff8080' : '#0099b0'
+    ctx.strokeStyle = randomColor
+
     for (let i = 0; i <= this.field.width; i++) {
       const left = i * cellSize
       ctx.moveTo(left + leftStart, topStart)
@@ -50,7 +53,7 @@ export default class FieldService {
   drawPopulation() {
     const image = new Image()
     image.src = 'creature.png'
-    image.onload = () => this.onImageLoad(image)
+    this.onImageLoad(image)
   }
 
   place(population: IPopulation) {

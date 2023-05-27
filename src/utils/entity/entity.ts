@@ -1,7 +1,8 @@
+import IAwake from '@/utils/awake.types'
 import IComponent from '@/utils/component.types'
 import IUpdate from '@/utils/update.types'
 
-export default abstract class Entity implements IUpdate {
+export default abstract class Entity implements IAwake, IUpdate {
   protected components: IComponent[] = []
 
   get Components(): IComponent[] {
@@ -13,8 +14,10 @@ export default abstract class Entity implements IUpdate {
     component.entity = this
   }
 
-  // constructor with any amount of arguments of any type
-  // which produces an object of type C
+  awake() {
+    this.components.forEach((component) => component.awake())
+  }
+
   getComponent<C extends IComponent>(constr: constr<C>): C {
     for (const component of this.components) {
       if (component instanceof constr) {
@@ -46,5 +49,7 @@ export default abstract class Entity implements IUpdate {
   }
 }
 
+// constructor with any amount of arguments of any type
+// which produces an object of type C
 // eslint-disable-next-line prettier/prettier
 type constr<T> = { new(...args: unknown[]): T }
