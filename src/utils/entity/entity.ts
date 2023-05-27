@@ -1,5 +1,5 @@
-import IComponent from '@/utils/component/component.types'
-import IUpdate from '@/utils/update/update.types'
+import IComponent from '@/utils/component.types'
+import IUpdate from '@/utils/update.types'
 
 export default abstract class Entity implements IUpdate {
   protected components: IComponent[] = []

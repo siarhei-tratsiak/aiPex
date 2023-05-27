@@ -1,4 +1,4 @@
-import IComponent from '@/utils/component/component.types'
+import IComponent from '@/utils/component.types'
 
 export default abstract class Entity {
   protected components: IComponent[] = []
