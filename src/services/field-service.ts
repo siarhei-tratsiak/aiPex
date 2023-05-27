@@ -58,7 +58,7 @@ export default class FieldService {
     }
 
     const img = new Image()
-    img.src = creature.img
+    img.src = 'creature.png'
     img.onload = () => this.onImageLoad(creature, img)
   }
 

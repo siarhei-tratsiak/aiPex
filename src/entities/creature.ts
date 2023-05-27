@@ -1,12 +1,9 @@
 export default class Creature {
-  readonly img: string
   posX: number | null = null
   posY: number | null = null
   weight = 1
 
-  constructor(img: string, weight?: number) {
-    this.img = img
-
+  constructor(weight?: number) {
     if (weight) {
       this.weight = weight
     }

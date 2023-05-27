@@ -7,7 +7,7 @@ export default class Population implements IPopulation {
   constructor(count: number) {
     for (let i = 0; i < count; i++) {
       const weight = Math.random() * 2 + 0.5 // between 0.5 and 2
-      const creature = new Creature('creature.png', weight)
+      const creature = new Creature(weight)
       this.creatures.push(creature)
     }
   }
