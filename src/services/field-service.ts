@@ -1,12 +1,11 @@
-import Creature from '@/entities/creature'
-import Field from '@/entities/field'
+import ICreature from '@/entities/creature/creature.types'
+import IField from '@/entities/field/field.types'
 import IPopulation from '@/entities/population/population.types'
-import CreatureService from '@/services/creature-service'
 
 export default class FieldService {
-  private field: Field
+  private field: IField
 
-  constructor(field: Field) {
+  constructor(field: IField) {
     this.field = field
   }
 
@@ -48,54 +47,70 @@ export default class FieldService {
     ctx.stroke()
   }
 
-  drawCreature(creature: Creature) {
-    if (
-      creature.posX === null ||
-      creature.posY === null ||
-      !this.field.canvas.ctx
-    ) {
-      return
-    }
-
-    const img = new Image()
-    img.src = 'creature.png'
-    img.onload = () => this.onImageLoad(creature, img)
+  drawPopulation() {
+    const image = new Image()
+    image.src = 'creature.png'
+    image.onload = () => this.onImageLoad(image)
   }
 
   place(population: IPopulation) {
-    const creatureService = new CreatureService()
-    const cellsCount = this.field.height * this.field.width
-    const sowingCells: number[] = []
-
     population.creatures.forEach((creature) => {
-      let cellIndex
+      let x
+      let y
 
       do {
-        cellIndex = Math.floor(Math.random() * cellsCount)
-      } while (sowingCells.includes(cellIndex))
+        x = Math.floor(Math.random() * this.field.height)
+        y = Math.floor(Math.random() * this.field.width)
+      } while (this.field.cells[x][y] !== null)
 
-      sowingCells.push(cellIndex)
-
-      const y = Math.floor(cellIndex / this.field.width)
-      const x = cellIndex % this.field.width
-      creatureService.place(creature, { x, y })
+      this.field.cells[x][y] = creature
     })
   }
 
-  private onImageLoad(creature: Creature, img: HTMLImageElement) {
+  private onImageLoad(image: HTMLImageElement) {
     const { ctx } = this.field.canvas
     const { cellSize } = this.field
-    const imageSize = (-1 / (1 + creature.weight) + 1) * cellSize
-    const transition = (cellSize - imageSize) / 2
 
-    if (creature.posX === null || creature.posY === null) {
+    this.field.cells.forEach((row, x) => {
+      row.forEach((cell, y) =>
+        this.drawImage({
+          cell,
+          cellSize,
+          ctx,
+          image,
+          x,
+          y
+        })
+      )
+    })
+  }
+
+  private drawImage({
+    cell,
+    cellSize,
+    ctx,
+    image,
+    x,
+    y
+  }: {
+    cell: ICreature | null
+    cellSize: number
+    ctx: CanvasRenderingContext2D | null
+    image: HTMLImageElement
+    x: number
+    y: number
+  }) {
+    if (cell === null) {
       return
     }
 
+    const imageSize = (-1 / (1 + cell.weight) + 1) * cellSize
+    const transition = (cellSize - imageSize) / 2
+
     ctx?.drawImage(
-      img,
-      creature.posX * cellSize + this.field.left + transition,
-      creature.posY * cellSize + this.field.top + transition,
+      image,
+      y * cellSize + this.field.left + transition,
+      x * cellSize + this.field.top + transition,
       imageSize,
       imageSize
     )

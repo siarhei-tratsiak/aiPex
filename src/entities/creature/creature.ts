@@ -1,4 +1,6 @@
-export default class Creature {
+import ICreature from '@/entities/creature/creature.types'
+
+export default class Creature implements ICreature {
   posX: number | null = null
   posY: number | null = null
   weight = 1

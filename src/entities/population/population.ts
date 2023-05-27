@@ -1,4 +1,4 @@
-import Creature from '@/entities/creature'
+import Creature from '@/entities/creature/creature'
 import IPopulation from '@/entities/population/population.types'
 
 export default class Population implements IPopulation {

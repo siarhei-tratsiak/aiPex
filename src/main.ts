@@ -1,6 +1,6 @@
 import '@/style.css'
 import Canvas from '@/entities/canvas'
-import Field from '@/entities/field'
+import Field from '@/entities/field/field'
 import Population from '@/entities/population/population'
 import CanvasService from '@/services/canvas-service'
 import FieldService from '@/services/field-service'
@@ -16,4 +16,4 @@ const population = new Population(10)
 
 fieldService.drawField()
 fieldService.place(population)
-population.creatures.forEach((creature) => fieldService.drawCreature(creature))
+fieldService.drawPopulation()
