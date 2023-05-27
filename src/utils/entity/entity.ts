@@ -1,13 +1,14 @@
 import IComponent from '@/utils/component/component.types'
+import IUpdate from '@/utils/update/update.types'
 
-export default abstract class Entity {
+export default abstract class Entity implements IUpdate {
   protected components: IComponent[] = []
 
   get Components(): IComponent[] {
     return this.components
   }
 
-  addComponent(component: IComponent): void {
+  addComponent(component: IComponent) {
     this.components.push(component)
     component.entity = this
   }
@@ -26,11 +27,11 @@ export default abstract class Entity {
     )
   }
 
-  hasComponent<C extends IComponent>(constr: constr<C>): boolean {
+  hasComponent<C extends IComponent>(constr: constr<C>) {
     return this.components.some((component) => component instanceof constr)
   }
 
-  removeComponent<C extends IComponent>(constr: constr<C>): void {
+  removeComponent<C extends IComponent>(constr: constr<C>) {
     const index = this.components.findIndex(
       (component) => component instanceof constr
     )
@@ -38,6 +39,10 @@ export default abstract class Entity {
     if (index > -1) {
       this.components.splice(index, 1)
     }
+  }
+
+  update(deltaTime: number) {
+    this.components.forEach((component) => component.update(deltaTime))
   }
 }
 
