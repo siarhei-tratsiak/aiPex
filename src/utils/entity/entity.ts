@@ -1,6 +1,5 @@
-import IAwake from '@/utils/awake.types'
 import IComponent from '@/utils/component.types'
-import IUpdate from '@/utils/update.types'
+import { IAwake, IUpdate } from '@/utils/lifecycle.types'
 
 export default abstract class Entity implements IAwake, IUpdate {
   protected components: IComponent[] = []

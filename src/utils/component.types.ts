@@ -1,6 +1,5 @@
-import IAwake from '@/utils/awake.types'
 import Entity from '@/utils/entity/entity'
-import IUpdate from '@/utils/update.types'
+import { IAwake, IUpdate } from '@/utils/lifecycle.types'
 
 export default interface IComponent extends IAwake, IUpdate {
   entity: Entity | null
