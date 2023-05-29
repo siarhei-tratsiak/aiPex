@@ -1,12 +1,9 @@
-import Canvas from '@/entities/canvas'
-import ICreature from '@/entities/creature/creature.types'
+import ICell from '@/entities/cell/cell.types'
 
 export default interface IField {
-  canvas: Canvas
-  cells: (null | ICreature)[][]
+  cells: ICell[][]
   cellSize: number
+
   readonly height: number
-  left: number
-  top: number
   readonly width: number
 }

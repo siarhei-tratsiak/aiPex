@@ -1,13 +1,23 @@
+import Field from '@/entities/field/field'
+import IGame from '@/entities/game/game.types'
+import IView from '@/entities/view.types'
+import settings from '@/settings'
 import Entity from '@/utils/entity/entity'
 
-export default class Game extends Entity {
+export default class Game extends Entity implements IGame {
   entities: Entity[] = []
 
   private lastTimestamp = 0
 
+  constructor(public view: IView) {
+    super()
+  }
+
   awake() {
     super.awake()
-
+    this.entities.push(
+      new Field(settings.field.height, this.view, settings.field.width)
+    )
     this.entities.forEach((entity) => entity.awake())
 
     // Make sure Update starts after all entities are awaken

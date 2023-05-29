@@ -18,8 +18,8 @@ export default class FieldService {
 
     const element = this.field.canvas.element
     const canvasAspectRatio = element.width / element.height
-    const fieldAspectRation = this.field.width / this.field.height
-    const base = canvasAspectRatio > fieldAspectRation ? 'height' : 'width'
+    const fieldAspectRatio = this.field.width / this.field.height
+    const base = canvasAspectRatio > fieldAspectRatio ? 'height' : 'width'
     const cellSize = element[base] / this.field[base]
     const fieldHeight = this.field.height * cellSize
     const topStart = (element.height - fieldHeight) / 2
@@ -53,7 +53,7 @@ export default class FieldService {
   drawPopulation() {
     const image = new Image()
     image.src = 'creature.png'
-    this.onImageLoad(image)
+    image.onload = () => this.onImageLoad(image)
   }
 
   place(population: IPopulation) {

@@ -1,12 +1,9 @@
 import IComponent from '@/utils/component.types'
+import IEntity from '@/utils/entity/entity.types'
 import { IAwake, IUpdate } from '@/utils/lifecycle.types'
 
-export default abstract class Entity implements IAwake, IUpdate {
-  protected components: IComponent[] = []
-
-  get Components(): IComponent[] {
-    return this.components
-  }
+export default abstract class Entity implements IAwake, IEntity, IUpdate {
+  components: IComponent[] = []
 
   addComponent(component: IComponent) {
     this.components.push(component)
