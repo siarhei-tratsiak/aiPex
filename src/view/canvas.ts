@@ -55,4 +55,8 @@ export default class Canvas implements IView {
 
     return { x, y }
   }
+
+  runBeforeRepaint(callback: FrameRequestCallback) {
+    window.requestAnimationFrame(callback)
+  }
 }
