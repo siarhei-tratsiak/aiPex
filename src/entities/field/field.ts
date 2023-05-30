@@ -1,7 +1,7 @@
 import Cell from '@/entities/cell/cell'
 import IField from '@/entities/field/field.types'
-import IView from '@/entities/view.types'
 import Entity from '@/utils/entity/entity'
+import IView from '@/view/view.types'
 
 export default class Field extends Entity implements IField {
   cells: Cell[][] = []

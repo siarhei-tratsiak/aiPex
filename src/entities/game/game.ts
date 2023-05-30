@@ -1,8 +1,8 @@
 import Field from '@/entities/field/field'
 import IGame from '@/entities/game/game.types'
-import IView from '@/entities/view.types'
 import settings from '@/settings'
 import Entity from '@/utils/entity/entity'
+import IView from '@/view/view.types'
 
 export default class Game extends Entity implements IGame {
   entities: Entity[] = []

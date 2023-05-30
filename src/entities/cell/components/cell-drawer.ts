@@ -1,6 +1,6 @@
 import ICell from '@/entities/cell/cell.types'
-import IView from '@/entities/view.types'
 import IComponent from '@/utils/component.types'
+import IView from '@/view/view.types'
 
 export default class CellDrawer implements IComponent {
   entity: ICell | null = null

@@ -1,6 +1,6 @@
 import ICell from '@/entities/cell/cell.types'
-import IView from '@/entities/view.types'
 import settings from '@/settings'
+import IView from '@/view/view.types'
 
 export default class Canvas implements IView {
   readonly ctx: CanvasRenderingContext2D
@@ -20,7 +20,7 @@ export default class Canvas implements IView {
     }
   }
 
-  drawCell(cell: ICell): void {
+  drawCell(cell: ICell) {
     const cellSize = this.getCellSize()
     const { x: fieldX, y: fieldY } = this.getFieldPosition()
     const topLeft = {
