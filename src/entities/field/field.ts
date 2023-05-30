@@ -1,17 +1,12 @@
 import Cell from '@/entities/cell/cell'
 import IField from '@/entities/field/field.types'
 import Entity from '@/utils/entity/entity'
-import IView from '@/view/view.types'
 
 export default class Field extends Entity implements IField {
   cells: Cell[][] = []
   cellSize = 0
 
-  constructor(
-    readonly height: number,
-    private readonly view: IView,
-    readonly width: number
-  ) {
+  constructor(readonly height: number, readonly width: number) {
     super()
   }
 
@@ -30,7 +25,7 @@ export default class Field extends Entity implements IField {
     for (let i = 0; i < this.height; i++) {
       this.cells.push([])
       for (let j = 0; j < this.width; j++) {
-        this.cells[i].push(new Cell(this.view, j, i))
+        this.cells[i].push(new Cell(j, i))
       }
     }
   }

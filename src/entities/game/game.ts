@@ -1,10 +1,8 @@
 import Field from '@/entities/field/field'
-import IGame from '@/entities/game/game.types'
 import settings from '@/settings'
 import Entity from '@/utils/entity/entity'
-import IView from '@/view/view.types'
 
-export default class Game extends Entity implements IGame {
+export default class Game extends Entity {
   entities: Entity[] = []
 
   private readonly awakeCallback = () => {
@@ -13,19 +11,17 @@ export default class Game extends Entity implements IGame {
   }
   private lastTimestamp = 0
 
-  constructor(public view: IView) {
-    super()
-  }
-
   awake() {
     super.awake()
 
-    this.entities.push(
-      new Field(settings.field.height, this.view, settings.field.width)
-    )
+    this.entities.push(new Field(settings.field.height, settings.field.width))
     this.entities.forEach((entity) => entity.awake())
     // Make sure Update starts after all entities are awaken
-    this.view.runBeforeRepaint(this.awakeCallback)
+    this.runBeforeRepaint(this.awakeCallback)
+  }
+
+  runBeforeRepaint(callback: FrameRequestCallback) {
+    window.requestAnimationFrame(callback)
   }
 
   update() {
@@ -35,6 +31,6 @@ export default class Game extends Entity implements IGame {
 
     this.entities.forEach((entity) => entity.update(deltaTime))
     this.lastTimestamp = Date.now()
-    this.view.runBeforeRepaint(() => this.update())
+    this.runBeforeRepaint(() => this.update())
   }
 }

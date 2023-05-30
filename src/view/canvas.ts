@@ -6,10 +6,13 @@ export default class Canvas implements IView {
   readonly ctx: CanvasRenderingContext2D
   readonly element: HTMLCanvasElement
 
-  constructor(id: string) {
-    this.element = <HTMLCanvasElement>document.getElementById(id)
-    this.element.width = document.body.clientWidth
-    this.element.height = document.body.clientHeight - 5
+  constructor() {
+    const canvas = document.createElement('canvas')
+    canvas.height = document.body.clientHeight - 5
+    canvas.width = document.body.clientWidth
+    document.body.appendChild(canvas)
+
+    this.element = canvas
 
     const ctx = this.element.getContext('2d')
 
@@ -27,13 +30,8 @@ export default class Canvas implements IView {
       x: fieldX + cell.x * cellSize,
       y: fieldY + cell.y * cellSize
     }
-    const bottomRight = { x: topLeft.x + cellSize, y: topLeft.y + cellSize }
 
-    this.ctx.moveTo(topLeft.x, topLeft.y)
-    this.ctx.lineTo(bottomRight.x, topLeft.y)
-    this.ctx.lineTo(bottomRight.x, bottomRight.y)
-    this.ctx.lineTo(topLeft.x, bottomRight.y)
-    this.ctx.lineTo(topLeft.x, topLeft.y)
+    this.ctx.rect(topLeft.x, topLeft.y, cellSize, cellSize)
     this.ctx.stroke()
   }
 
@@ -54,9 +52,5 @@ export default class Canvas implements IView {
     const y = (this.element.height - fieldHeight) / 2
 
     return { x, y }
-  }
-
-  runBeforeRepaint(callback: FrameRequestCallback) {
-    window.requestAnimationFrame(callback)
   }
 }

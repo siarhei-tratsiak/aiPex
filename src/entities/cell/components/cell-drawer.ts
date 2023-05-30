@@ -1,11 +1,11 @@
 import ICell from '@/entities/cell/cell.types'
 import IComponent from '@/utils/component.types'
-import IView from '@/view/view.types'
+import CanvasLayer from '@/view/canvas-layer'
 
 export default class CellDrawer implements IComponent {
   entity: ICell | null = null
 
-  constructor(private readonly view: IView) {
+  constructor() {
     //
   }
 
@@ -14,7 +14,7 @@ export default class CellDrawer implements IComponent {
   }
 
   draw() {
-    if (this.entity) this.view.drawCell(this.entity)
+    if (this.entity) CanvasLayer.background.drawCell(this.entity)
   }
 
   update(/*deltaTime: number*/) {
