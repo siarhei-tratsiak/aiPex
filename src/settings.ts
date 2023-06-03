@@ -1,9 +1,9 @@
 export default Object.freeze({
   field: {
-    width: 20,
-    height: 10
+    width: 40,
+    height: 20
   },
   population: {
-    count: 10
+    count: 100
   }
 })

@@ -1,6 +1,5 @@
 import ICreature from '@/entities/creature/creature.types'
 import IField from '@/entities/field/field.types'
-import IPopulation from '@/entities/population/population.types'
 
 export default class FieldService {
   field: IField
@@ -13,20 +12,6 @@ export default class FieldService {
     const image = new Image()
     image.src = 'creature.png'
     image.onload = () => this.onImageLoad(image)
-  }
-
-  place(population: IPopulation) {
-    population.creatures.forEach((creature) => {
-      let x
-      let y
-
-      do {
-        x = Math.floor(Math.random() * this.field.height)
-        y = Math.floor(Math.random() * this.field.width)
-      } while (this.field.cells[x][y] !== null)
-
-      this.field.cells[x][y] = creature
-    })
   }
 
   private onImageLoad(image: HTMLImageElement) {

@@ -1,5 +1,8 @@
 import ICell from '@/entities/cell/cell.types'
+import ICreature from '@/entities/creature/creature.types'
 import settings from '@/settings'
+import Assets from '@/utils/assets/assets'
+import ICoords from '@/utils/coords/coords.types'
 import IView from '@/view/view.types'
 
 export default class Canvas implements IView {
@@ -7,7 +10,7 @@ export default class Canvas implements IView {
   readonly element: HTMLCanvasElement
 
   private readonly cellSize: number
-  private readonly fieldPosition: { x: number; y: number }
+  private readonly fieldPosition: ICoords
 
   constructor(zIndex: number) {
     const canvas = document.createElement('canvas')
@@ -40,11 +43,25 @@ export default class Canvas implements IView {
     const cellSize = Math.floor(this.cellSize)
     const { x: fieldX, y: fieldY } = this.fieldPosition
     const topLeft = {
-      x: Math.floor(fieldX + cell.x * cellSize),
-      y: Math.floor(fieldY + cell.y * cellSize)
+      x: Math.floor(fieldX + cell.coords.x * cellSize),
+      y: Math.floor(fieldY + cell.coords.y * cellSize)
     }
 
     this.ctx.rect(topLeft.x, topLeft.y, cellSize, cellSize)
+  }
+
+  drawCreature(creature: ICreature) {
+    const cellSize = Math.floor(this.cellSize)
+    const imageSize = (-1 / (1 + creature.weight) + 1) * cellSize
+    const transition = (cellSize - imageSize) / 2
+
+    this.ctx?.drawImage(
+      Assets.images.creature,
+      creature.cell.coords.x * cellSize + this.fieldPosition.x + transition,
+      creature.cell.coords.y * cellSize + this.fieldPosition.y + transition,
+      imageSize,
+      imageSize
+    )
   }
 
   getCellSize() {
