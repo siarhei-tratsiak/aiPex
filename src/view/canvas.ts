@@ -6,6 +6,9 @@ export default class Canvas implements IView {
   readonly ctx: CanvasRenderingContext2D
   readonly element: HTMLCanvasElement
 
+  private readonly cellSize: number
+  private readonly fieldPosition: { x: number; y: number }
+
   constructor() {
     const canvas = document.createElement('canvas')
     canvas.height = document.body.clientHeight - 5
@@ -21,18 +24,24 @@ export default class Canvas implements IView {
     } else {
       throw new Error('context is not available')
     }
+
+    this.cellSize = this.getCellSize()
+    this.fieldPosition = this.getFieldPosition()
+  }
+
+  clearRect() {
+    this.ctx.clearRect(0, 0, this.element.width, this.element.height)
   }
 
   drawCell(cell: ICell) {
-    const cellSize = this.getCellSize()
-    const { x: fieldX, y: fieldY } = this.getFieldPosition()
+    const cellSize = Math.floor(this.cellSize)
+    const { x: fieldX, y: fieldY } = this.fieldPosition
     const topLeft = {
-      x: fieldX + cell.x * cellSize,
-      y: fieldY + cell.y * cellSize
+      x: Math.floor(fieldX + cell.x * cellSize),
+      y: Math.floor(fieldY + cell.y * cellSize)
     }
 
     this.ctx.rect(topLeft.x, topLeft.y, cellSize, cellSize)
-    this.ctx.stroke()
   }
 
   getCellSize() {
@@ -43,8 +52,7 @@ export default class Canvas implements IView {
   }
 
   getFieldPosition() {
-    const cellSize = this.getCellSize()
-
+    const cellSize = this.cellSize
     const fieldWidth = settings.field.width * cellSize
     const fieldHeight = settings.field.height * cellSize
 

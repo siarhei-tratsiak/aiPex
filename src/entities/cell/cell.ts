@@ -8,7 +8,7 @@ export default class Cell extends Entity implements ICell {
   }
 
   awake() {
-    this.addComponent(new CellDrawer())
+    this.addComponent(new CellDrawer(this))
     super.awake()
   }
 }

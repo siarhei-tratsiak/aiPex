@@ -7,7 +7,6 @@ export default abstract class Entity implements IAwake, IEntity, IUpdate {
 
   addComponent(component: IComponent) {
     this.components.push(component)
-    component.entity = this
   }
 
   awake() {

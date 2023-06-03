@@ -1,6 +1,7 @@
 import Field from '@/entities/field/field'
 import settings from '@/settings'
 import Entity from '@/utils/entity/entity'
+import CanvasLayer from '@/view/canvas-layer'
 
 export default class Game extends Entity {
   entities: Entity[] = []
@@ -25,12 +26,14 @@ export default class Game extends Entity {
   }
 
   update() {
-    const deltaTime = (Date.now() - this.lastTimestamp) / 1000
+    const deltaTime = Date.now() - this.lastTimestamp
 
-    super.update(deltaTime)
-
-    this.entities.forEach((entity) => entity.update(deltaTime))
-    this.lastTimestamp = Date.now()
     this.runBeforeRepaint(() => this.update())
+
+    this.lastTimestamp = Date.now()
+    CanvasLayer.background.clearRect()
+    super.update(deltaTime)
+    this.entities.forEach((entity) => entity.update(deltaTime))
+    CanvasLayer.background.ctx.stroke()
   }
 }
