@@ -9,8 +9,11 @@ export default class Canvas implements IView {
   private readonly cellSize: number
   private readonly fieldPosition: { x: number; y: number }
 
-  constructor() {
+  constructor(zIndex: number) {
     const canvas = document.createElement('canvas')
+
+    canvas.style.position = 'absolute'
+    canvas.style.zIndex = zIndex.toString()
     canvas.height = document.body.clientHeight - 5
     canvas.width = document.body.clientWidth
     document.body.appendChild(canvas)
