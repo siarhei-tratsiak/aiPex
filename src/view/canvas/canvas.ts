@@ -3,9 +3,10 @@ import ICreature from '@/entities/creature/creature.types'
 import settings from '@/settings'
 import Assets from '@/utils/assets/assets'
 import ICoords from '@/utils/coords/coords.types'
+import ICanvas from '@/view/canvas/canvas.types'
 import IView from '@/view/view.types'
 
-export default class Canvas implements IView {
+export default class Canvas implements ICanvas, IView {
   readonly ctx: CanvasRenderingContext2D
   readonly element: HTMLCanvasElement
 

@@ -2,7 +2,7 @@ import Field from '@/entities/field/field'
 import settings from '@/settings'
 import Assets from '@/utils/assets/assets'
 import Entity from '@/utils/entity/entity'
-import CanvasLayers from '@/view/canvas-layer'
+import Layers from '@/view/layers/layers'
 
 export default class Game extends Entity {
   assets: Assets | null = null
@@ -34,10 +34,10 @@ export default class Game extends Entity {
     this.runBeforeRepaint(() => this.update())
 
     this.lastTimestamp = Date.now()
-    CanvasLayers.background.clearRect()
-    CanvasLayers.foreground.clearRect()
+    Layers.background.clearRect()
+    Layers.foreground.clearRect()
     super.update(deltaTime)
     this.entities.forEach((entity) => entity.update(deltaTime))
-    CanvasLayers.background.ctx.stroke()
+    Layers.background.ctx.stroke()
   }
 }

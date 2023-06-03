@@ -1,6 +1,6 @@
 import ICreature from '@/entities/creature/creature.types'
 import IComponent from '@/utils/component.types'
-import CanvasLayer from '@/view/canvas-layer'
+import Layers from '@/view/layers/layers'
 
 export default class CreatureDrawer implements IComponent {
   constructor(private readonly entity: ICreature) {
@@ -12,7 +12,7 @@ export default class CreatureDrawer implements IComponent {
   }
 
   draw() {
-    CanvasLayer.foreground.drawCreature(this.entity)
+    Layers.foreground.drawCreature(this.entity)
   }
 
   update() {

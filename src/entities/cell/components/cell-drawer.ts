@@ -1,6 +1,6 @@
 import ICell from '@/entities/cell/cell.types'
 import IComponent from '@/utils/component.types'
-import CanvasLayer from '@/view/canvas-layer'
+import Layers from '@/view/layers/layers'
 
 export default class CellDrawer implements IComponent {
   constructor(private readonly entity: ICell) {
@@ -12,7 +12,7 @@ export default class CellDrawer implements IComponent {
   }
 
   draw() {
-    CanvasLayer.background.drawCell(this.entity)
+    Layers.background.drawCell(this.entity)
   }
 
   update() {
