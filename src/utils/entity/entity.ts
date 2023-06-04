@@ -1,4 +1,4 @@
-import IComponent from '@/utils/component.types'
+import IComponent from '@/utils/components/component.types'
 import IEntity from '@/utils/entity/entity.types'
 import { IAwake, IUpdate } from '@/utils/lifecycle.types'
 
@@ -39,8 +39,8 @@ export default abstract class Entity implements IAwake, IEntity, IUpdate {
     }
   }
 
-  update(deltaTime: number) {
-    this.components.forEach((component) => component.update(deltaTime))
+  update() {
+    this.components.forEach((component) => component.update())
   }
 }
 

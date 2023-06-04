@@ -1,4 +1,4 @@
-import IComponent from '@/utils/component.types'
+import IComponent from '@/utils/components/component.types'
 
 export default interface IEntity {
   components: IComponent[]

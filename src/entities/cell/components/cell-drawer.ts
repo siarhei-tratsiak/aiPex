@@ -1,21 +1,19 @@
 import ICell from '@/entities/cell/cell.types'
-import IComponent from '@/utils/component.types'
+import Component from '@/utils/components/component'
 import Layers from '@/view/layers/layers'
 
-export default class CellDrawer implements IComponent {
+export default class CellDrawer extends Component {
   constructor(private readonly entity: ICell) {
-    //
-  }
-
-  awake() {
-    //
+    super()
   }
 
   draw() {
     Layers.background.drawCell(this.entity)
   }
 
-  update() {
+  protected updateActions() {
+    super.updateActions()
+
     this.draw()
   }
 }

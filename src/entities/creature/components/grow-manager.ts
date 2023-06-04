@@ -1,37 +1,20 @@
 import ICreature from '@/entities/creature/creature.types'
-import settings from '@/settings'
-import IComponent from '@/utils/component.types'
+import Component from '@/utils/components/component'
 
-export default class GrowManager implements IComponent {
-  private lastTimestamp: number
-
+export default class GrowManager extends Component {
   private readonly growSpeed: number
-  private readonly updatesPerCycle: number
 
   constructor(
     private readonly entity: ICreature,
-    { growSpeed = 0.1, updatesPerCycle = 0 } = {}
+    { growSpeed = 0.1, updatesPerCycle = 1 } = {}
   ) {
-    this.lastTimestamp = Date.now()
+    super(updatesPerCycle)
     this.growSpeed = growSpeed
-    this.updatesPerCycle = updatesPerCycle
   }
 
-  awake() {
-    //
-  }
+  updateActions() {
+    super.updateActions()
 
-  update() {
-    if (this.canBeUpdated()) {
-      this.lastTimestamp = Date.now()
-      this.entity.grow(this.growSpeed)
-    }
-  }
-
-  private canBeUpdated() {
-    const timeInterval = Date.now() - this.lastTimestamp
-    const updateInterval = settings.cycle.length / this.updatesPerCycle
-
-    return this.updatesPerCycle === 0 || timeInterval >= updateInterval
+    this.entity.grow(this.growSpeed)
   }
 }

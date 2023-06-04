@@ -1,21 +1,19 @@
 import ICreature from '@/entities/creature/creature.types'
-import IComponent from '@/utils/component.types'
+import Component from '@/utils/components/component'
 import Layers from '@/view/layers/layers'
 
-export default class CreatureDrawer implements IComponent {
+export default class CreatureDrawer extends Component {
   constructor(private readonly entity: ICreature) {
-    //
-  }
-
-  awake() {
-    //
+    super()
   }
 
   draw() {
     Layers.foreground.drawCreature(this.entity)
   }
 
-  update() {
+  protected updateActions() {
+    super.updateActions()
+
     this.draw()
   }
 }
