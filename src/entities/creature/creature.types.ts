@@ -5,5 +5,5 @@ export default interface ICreature extends IEntity {
   cell: ICell
   weight: number
 
-  grow(): void
+  grow(value: number): void
 }

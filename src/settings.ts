@@ -1,12 +1,12 @@
 export default Object.freeze({
   cycle: {
-    length: 5000
+    length: 500
   },
   field: {
-    width: 40,
-    height: 20
+    width: 20,
+    height: 10
   },
   population: {
-    count: 100
+    count: 10
   }
 })
