@@ -18,8 +18,10 @@ export default class ReproductionManager extends Component {
 
   private getRandomCoords() {
     const choice = Math.floor(Math.random() * 4)
+
     let left = 0
     let top = 0
+
     switch (choice) {
       case 0:
         top = 1
@@ -33,8 +35,10 @@ export default class ReproductionManager extends Component {
       case 4:
         left = 1
     }
+
     const x = this.entity.cell.coords.x + top
     const y = this.entity.cell.coords.y + left
+
     return { x, y }
   }
 

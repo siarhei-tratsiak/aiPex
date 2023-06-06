@@ -14,9 +14,27 @@ export default class Field extends Entity implements IField {
   }
 
   addCreature(coords: ICoords, weight: number) {
-    const creature = new Creature(this.cells[coords.y][coords.x], this, weight)
-    this.creatures.push(creature)
-    creature.awake()
+    // if outside the field, then appear from the opposite side of the field
+    coords.x = (coords.x + settings.field.width) % settings.field.width
+    coords.y = (coords.y + settings.field.height) % settings.field.height
+
+    const creatureIndex = this.creatures.findIndex(
+      (creature) =>
+        creature.cell.coords.x === coords.x &&
+        creature.cell.coords.y === coords.y
+    )
+    const cellIsTaken = creatureIndex !== -1
+
+    if (cellIsTaken) {
+      const oldCreatureIsWeaker = this.creatures[creatureIndex].weight < weight
+
+      if (oldCreatureIsWeaker) {
+        this.creatures.splice(creatureIndex, 1)
+        this.addNewCreature(coords, weight)
+      }
+    } else {
+      this.addNewCreature(coords, weight)
+    }
   }
 
   awake() {
@@ -34,6 +52,13 @@ export default class Field extends Entity implements IField {
     this.cells.forEach((row) => row.forEach((cell) => cell.update()))
 
     this.creatures.forEach((creature) => creature.update())
+  }
+
+  private addNewCreature(coords: ICoords, weight: number) {
+    const creature = new Creature(this.cells[coords.y][coords.x], this, weight)
+
+    this.creatures.push(creature)
+    creature.awake()
   }
 
   private cellIsTaken(coords: ICoords) {
