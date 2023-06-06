@@ -14,10 +14,9 @@ export default class Creature extends Entity implements ICreature {
   }
 
   awake() {
-    this.addComponent(new CreatureDrawer(this))
-    this.addComponent(new GrowManager(this, { updatesPerCycle: 1 }))
-
     super.awake()
+
+    super.addComponents({ CreatureDrawer, GrowManager }, 'Creature')
   }
 
   grow(value: number) {

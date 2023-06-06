@@ -3,8 +3,8 @@ import Component from '@/utils/components/component'
 import Layers from '@/view/layers/layers'
 
 export default class CellDrawer extends Component {
-  constructor(private readonly entity: ICell) {
-    super()
+  constructor(private readonly entity: ICell, { updatesPerCycle = 0 } = {}) {
+    super(updatesPerCycle)
   }
 
   draw() {

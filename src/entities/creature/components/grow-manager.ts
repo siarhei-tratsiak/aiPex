@@ -9,6 +9,7 @@ export default class GrowManager extends Component {
     { growSpeed = 0.1, updatesPerCycle = 1 } = {}
   ) {
     super(updatesPerCycle)
+
     this.growSpeed = growSpeed
   }
 

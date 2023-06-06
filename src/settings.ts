@@ -1,4 +1,15 @@
 export default Object.freeze({
+  Cell: {
+    components: { CellDrawer: null }
+  },
+  Creature: {
+    components: {
+      CreatureDrawer: null,
+      GrowManager: {
+        updatesPerCycle: 1
+      }
+    }
+  },
   cycle: {
     length: 500
   },

@@ -23,12 +23,12 @@ export default class Field extends Entity implements IField {
     this.creatures.forEach((creature) => creature.awake())
   }
 
-  update(deltaTime: number) {
-    super.update(deltaTime)
+  update() {
+    super.update()
 
-    this.cells.forEach((row) => row.forEach((cell) => cell.update(deltaTime)))
+    this.cells.forEach((row) => row.forEach((cell) => cell.update()))
 
-    this.creatures.forEach((creature) => creature.update(deltaTime))
+    this.creatures.forEach((creature) => creature.update())
   }
 
   private cellIsTaken(coords: ICoords) {
