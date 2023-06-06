@@ -7,7 +7,8 @@ export default Object.freeze({
       CreatureDrawer: null,
       GrowManager: {
         updatesPerCycle: 1
-      }
+      },
+      ReproductionManager: { updatesPerCycle: 0.2 }
     }
   },
   cycle: {
@@ -18,6 +19,6 @@ export default Object.freeze({
     height: 10
   },
   population: {
-    count: 10
+    count: 1
   }
 })

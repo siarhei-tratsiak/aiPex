@@ -13,6 +13,12 @@ export default class Field extends Entity implements IField {
     super()
   }
 
+  addCreature(coords: ICoords, weight: number) {
+    const creature = new Creature(this.cells[coords.y][coords.x], this, weight)
+    this.creatures.push(creature)
+    creature.awake()
+  }
+
   awake() {
     super.awake()
 
@@ -20,7 +26,6 @@ export default class Field extends Entity implements IField {
     this.cells.forEach((row) => row.forEach((cell) => cell.awake()))
 
     this.initCreatures()
-    this.creatures.forEach((creature) => creature.awake())
   }
 
   update() {
@@ -59,9 +64,7 @@ export default class Field extends Entity implements IField {
         }
       } while (this.cellIsTaken(coords))
 
-      this.creatures.push(
-        new Creature(this.cells[coords.y][coords.x], Math.random() + 0.5)
-      )
+      this.addCreature(coords, Math.random() + 0.5)
     }
   }
 }
