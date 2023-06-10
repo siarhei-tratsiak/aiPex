@@ -9,10 +9,8 @@ export default class Game extends Entity {
   entities: Entity[] = []
 
   private readonly awakeCallback = () => {
-    this.lastTimestamp = Date.now()
     this.update()
   }
-  private lastTimestamp = 0
 
   awake() {
     super.awake()
@@ -29,15 +27,15 @@ export default class Game extends Entity {
   }
 
   update() {
-    const deltaTime = Date.now() - this.lastTimestamp
-
     this.runBeforeRepaint(() => this.update())
 
-    this.lastTimestamp = Date.now()
     Layers.background.clearRect()
     Layers.foreground.clearRect()
-    super.update(deltaTime)
-    this.entities.forEach((entity) => entity.update(deltaTime))
+
+    super.update()
+
+    this.entities.forEach((entity) => entity.update())
+
     Layers.background.ctx.stroke()
   }
 }
