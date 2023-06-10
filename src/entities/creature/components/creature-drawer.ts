@@ -3,11 +3,8 @@ import Component from '@/utils/components/component'
 import Layers from '@/view/layers/layers'
 
 export default class CreatureDrawer extends Component {
-  constructor(
-    private readonly entity: ICreature,
-    { updatesPerCycle = 0 } = {}
-  ) {
-    super(updatesPerCycle)
+  constructor(private readonly entity: ICreature, { cyclesToUpdate = 0 } = {}) {
+    super(cyclesToUpdate)
   }
 
   draw() {

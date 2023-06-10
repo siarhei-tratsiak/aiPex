@@ -3,11 +3,8 @@ import Component from '@/utils/components/component'
 import ICoords from '@/utils/coords/coords.types'
 
 export default class ReproductionManager extends Component {
-  constructor(
-    private readonly entity: ICreature,
-    { updatesPerCycle = 1 } = {}
-  ) {
-    super(updatesPerCycle)
+  constructor(private readonly entity: ICreature, { cyclesToUpdate = 1 } = {}) {
+    super(cyclesToUpdate)
   }
 
   protected updateActions() {

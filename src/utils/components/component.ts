@@ -1,35 +1,30 @@
-import settings from '@/settings'
 import { IUpdate } from '@/utils/lifecycle.types'
 
 export default class Component implements IUpdate {
   protected canBeUpdated = false
+  protected passedCycles = 0
 
-  private lastTimestamp: number
-
-  constructor(private readonly updatesPerCycle = 0) {
-    this.lastTimestamp = Date.now()
+  constructor(private readonly cyclesToUpdate = 0) {
+    //
   }
 
   awake() {
     //
   }
 
-  update() {
-    this.canBeUpdated = this.checkUpdate()
-
-    if (this.canBeUpdated) {
+  update(isTimeToStartNewCycle: boolean) {
+    if (this.cyclesToUpdate === 0) {
       this.updateActions()
+    } else if (isTimeToStartNewCycle) {
+      this.passedCycles++
+
+      if (this.cyclesToUpdate === this.passedCycles) {
+        this.updateActions()
+      }
     }
   }
 
   protected updateActions() {
-    this.lastTimestamp = Date.now()
-  }
-
-  private checkUpdate() {
-    const timeInterval = Date.now() - this.lastTimestamp
-    const updateInterval = settings.cycle.length / this.updatesPerCycle
-
-    return this.updatesPerCycle === 0 || timeInterval >= updateInterval
+    this.passedCycles = 0
   }
 }

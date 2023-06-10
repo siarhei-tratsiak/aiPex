@@ -6,9 +6,9 @@ export default Object.freeze({
     components: {
       CreatureDrawer: null,
       GrowManager: {
-        updatesPerCycle: 1
+        cyclesToUpdate: 1
       },
-      ReproductionManager: { updatesPerCycle: 0.2 }
+      ReproductionManager: { cyclesToUpdate: 5 }
     }
   },
   cycle: {

@@ -3,5 +3,5 @@ export interface IAwake {
 }
 
 export interface IUpdate {
-  update(): void
+  update(isTimeToStartNewCycle: boolean): void
 }

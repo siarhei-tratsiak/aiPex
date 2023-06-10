@@ -6,9 +6,9 @@ export default class GrowManager extends Component {
 
   constructor(
     private readonly entity: ICreature,
-    { growSpeed = 0.1, updatesPerCycle = 1 } = {}
+    { growSpeed = 0.1, cyclesToUpdate = 1 } = {}
   ) {
-    super(updatesPerCycle)
+    super(cyclesToUpdate)
 
     this.growSpeed = growSpeed
   }

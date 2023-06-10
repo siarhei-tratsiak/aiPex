@@ -46,12 +46,14 @@ export default class Field extends Entity implements IField {
     this.initCreatures()
   }
 
-  update() {
-    super.update()
+  update(isTimeToStartNewCycle: boolean) {
+    super.update(isTimeToStartNewCycle)
 
-    this.cells.forEach((row) => row.forEach((cell) => cell.update()))
+    this.cells.forEach((row) =>
+      row.forEach((cell) => cell.update(isTimeToStartNewCycle))
+    )
 
-    this.creatures.forEach((creature) => creature.update())
+    this.creatures.forEach((creature) => creature.update(isTimeToStartNewCycle))
   }
 
   private addNewCreature(coords: ICoords, weight: number) {

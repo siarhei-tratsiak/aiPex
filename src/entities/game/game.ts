@@ -8,9 +8,7 @@ export default class Game extends Entity {
   assets: Assets | null = null
   entities: Entity[] = []
 
-  private readonly awakeCallback = () => {
-    this.update()
-  }
+  private cycleStart = 0
 
   awake() {
     super.awake()
@@ -19,23 +17,34 @@ export default class Game extends Entity {
     this.entities.forEach((entity) => entity.awake())
 
     this.assets = new Assets()
-    this.assets.onload(() => this.runBeforeRepaint(this.awakeCallback))
-  }
-
-  runBeforeRepaint(callback: FrameRequestCallback) {
-    window.requestAnimationFrame(callback)
+    this.assets.onload(() => this.onAssetsLoad())
   }
 
   update() {
-    this.runBeforeRepaint(() => this.update())
+    this.runBeforeRepaint()
 
     Layers.background.clearRect()
     Layers.foreground.clearRect()
 
-    super.update()
+    const isTimeToStartNewCycle =
+      Date.now() - this.cycleStart >= settings.cycle.length
 
-    this.entities.forEach((entity) => entity.update())
+    if (isTimeToStartNewCycle) {
+      this.cycleStart = Date.now()
+    }
+
+    super.update(isTimeToStartNewCycle)
+    this.entities.forEach((entity) => entity.update(isTimeToStartNewCycle))
 
     Layers.background.ctx.stroke()
+  }
+
+  private onAssetsLoad() {
+    this.cycleStart = Date.now()
+    this.runBeforeRepaint()
+  }
+
+  private runBeforeRepaint() {
+    window.requestAnimationFrame(() => this.update())
   }
 }

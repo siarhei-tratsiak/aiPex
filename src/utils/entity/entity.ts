@@ -36,8 +36,10 @@ export default abstract class Entity implements IAwake, IEntity, IUpdate {
     }
   }
 
-  update() {
-    this.components.forEach((component) => component.update())
+  update(isTimeToStartNewCycle: boolean) {
+    this.components.forEach((component) =>
+      component.update(isTimeToStartNewCycle)
+    )
   }
 
   protected addComponents(componentNames: anyObject, entityName: string) {
