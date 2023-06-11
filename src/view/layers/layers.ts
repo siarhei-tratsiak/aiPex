@@ -1,3 +1,4 @@
+import ViewFactory from '@/factories/view-factory'
 import Canvas from '@/view/canvas/canvas'
 
 export default class Layers {
@@ -10,7 +11,7 @@ export default class Layers {
 
   public static get background() {
     if (!this._background) {
-      this._background = new Canvas(0)
+      this._background = ViewFactory.createView(0)
     }
 
     return this._background
@@ -18,7 +19,7 @@ export default class Layers {
 
   public static get foreground() {
     if (!this._foreground) {
-      this._foreground = new Canvas(1)
+      this._foreground = ViewFactory.createView(1)
     }
 
     return this._foreground

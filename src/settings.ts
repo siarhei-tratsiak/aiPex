@@ -20,5 +20,8 @@ export default Object.freeze({
   },
   population: {
     count: 1
+  },
+  view: {
+    type: 'canvas'
   }
 })
