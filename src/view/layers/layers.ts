@@ -1,9 +1,9 @@
 import ViewFactory from '@/factories/view-factory'
-import Canvas from '@/view/canvas/canvas'
+import IView from '@/view/view.types'
 
 export default class Layers {
-  private static _background: Canvas
-  private static _foreground: Canvas
+  private static _background: IView
+  private static _foreground: IView
 
   private constructor() {
     /* make it unaccessible */

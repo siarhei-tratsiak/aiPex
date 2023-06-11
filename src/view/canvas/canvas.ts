@@ -36,8 +36,12 @@ export default class Canvas implements ICanvas, IView {
     this.fieldPosition = this.getFieldPosition()
   }
 
-  clearRect() {
+  clear() {
     this.ctx.clearRect(0, 0, this.element.width, this.element.height)
+  }
+
+  draw() {
+    this.ctx.stroke()
   }
 
   drawCell(cell: ICell) {
@@ -65,14 +69,14 @@ export default class Canvas implements ICanvas, IView {
     )
   }
 
-  getCellSize() {
+  private getCellSize() {
     const canvasAspectRatio = this.element.width / this.element.height
     const fieldAspectRatio = settings.field.width / settings.field.height
     const base = canvasAspectRatio > fieldAspectRatio ? 'height' : 'width'
     return this.element[base] / settings.field[base]
   }
 
-  getFieldPosition() {
+  private getFieldPosition() {
     const cellSize = this.cellSize
     const fieldWidth = settings.field.width * cellSize
     const fieldHeight = settings.field.height * cellSize

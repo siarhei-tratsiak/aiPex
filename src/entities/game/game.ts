@@ -23,8 +23,8 @@ export default class Game extends Entity {
   update() {
     this.runBeforeRepaint()
 
-    Layers.background.clearRect()
-    Layers.foreground.clearRect()
+    Layers.background.clear()
+    Layers.foreground.clear()
 
     const isTimeToStartNewCycle =
       Date.now() - this.cycleStart >= settings.cycle.length
@@ -36,7 +36,7 @@ export default class Game extends Entity {
     super.update(isTimeToStartNewCycle)
     this.entities.forEach((entity) => entity.update(isTimeToStartNewCycle))
 
-    Layers.background.ctx.stroke()
+    Layers.background.draw()
   }
 
   private onAssetsLoad() {
